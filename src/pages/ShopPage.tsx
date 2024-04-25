@@ -31,12 +31,13 @@ interface Item {
 const ShopPage = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [categories, setCategories] = useState([""]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("https://fakestoreapi.com/products");
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error("Items unavailable.");
       }
       const data: Item[] = await response.json();
       setItems(data);
@@ -45,13 +46,28 @@ const ShopPage = () => {
     fetchData().catch((error) =>
       console.error("Fetching items failed:", error),
     );
+
+    const fetchCategories = async () => {
+      const response = await fetch(
+        "https://fakestoreapi.com/products/categories",
+      );
+      if (!response.ok) {
+        throw new Error("Categories unavailable.");
+      }
+      const categories = await response.json();
+      setCategories(categories);
+    };
+
+    fetchCategories().catch((error) =>
+      console.error("Fetching categories failed:", error),
+    );
   }, []); // Empty dependency array means this effect runs once after the initial render
 
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products/categories")
+  const selectCategory = (category: string) => {
+    fetch(`https://fakestoreapi.com/products/category/${category}`)
       .then((res) => res.json())
-      .then((json) => setCategories(json));
-  }, []);
+      .then((json) => setItems(json));
+  };
 
   return (
     <div className="flex w-full flex-col">
@@ -62,7 +78,9 @@ const ShopPage = () => {
           <ul className="flex flex-wrap gap-4">
             {categories.map((category) => (
               <Card key={category}>
-                <CardHeader>{category}</CardHeader>
+                <CardHeader onClick={() => selectCategory(category)}>
+                  {category}
+                </CardHeader>
               </Card>
             ))}
           </ul>
@@ -72,9 +90,9 @@ const ShopPage = () => {
           <h1 className="w-full text-xl font-semibold">Just for you</h1>
           <ul className="flex w-full flex-wrap gap-4">
             {items.map((item) => (
-              <Dialog>
+              <Dialog key={item.id}>
                 <DialogTrigger asChild>
-                  <Card key={item.id} className="flex h-72 w-52 flex-col">
+                  <Card className="flex h-72 w-52 flex-col">
                     <CardHeader>
                       <img
                         src={item.image}

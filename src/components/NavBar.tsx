@@ -1,15 +1,12 @@
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -21,14 +18,18 @@ const NavBar = () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Home
-            </NavigationMenuLink>
+            <Link to="/">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Home
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Shop
-            </NavigationMenuLink>
+            <Link to="/shop">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                Shop
+              </NavigationMenuLink>
+            </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>

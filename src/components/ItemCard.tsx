@@ -11,12 +11,7 @@ import {
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
-import {
-  ReactElement,
-  ReactEventHandler,
-  ReactHTMLElement,
-  useState,
-} from "react";
+import { useState } from "react";
 
 interface ItemCardProps {
   item: Item;

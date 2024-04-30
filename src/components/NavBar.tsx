@@ -5,11 +5,13 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { CartItem } from "@/pages/ShopPage";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 
 interface NavBarProps {
   quantity?: number;
+  cartItems?: CartItem;
 }
 
 const NavBar = ({ quantity = 0 }: NavBarProps) => {
@@ -33,11 +35,11 @@ const NavBar = ({ quantity = 0 }: NavBarProps) => {
             </NavLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavLink to="/shop/cart" className={navigationMenuTriggerStyle()}>
               Cart
               <ShoppingCart size={16} className="mx-2" />
               {quantity}
-            </NavigationMenuLink>
+            </NavLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

@@ -1,18 +1,9 @@
+import Categories from "@/components/Categories";
 import ItemCard from "@/components/ItemCard";
 import NavBar from "@/components/NavBar";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardHeader } from "@/components/ui/card";
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 
 export interface Item {
   id: number;
@@ -114,15 +105,10 @@ const ShopPage = () => {
           {isLoading ? (
             <h1>Loading Categories...</h1>
           ) : (
-            <ul className="flex flex-wrap gap-4">
-              {categories.map((category) => (
-                <Card key={category}>
-                  <CardHeader onClick={() => selectCategory(category)}>
-                    {category}
-                  </CardHeader>
-                </Card>
-              ))}
-            </ul>
+            <Categories
+              categories={categories}
+              onSelectCategory={(category) => selectCategory(category)}
+            />
           )}
         </div>
 

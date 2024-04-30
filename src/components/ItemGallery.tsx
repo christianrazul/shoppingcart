@@ -60,22 +60,19 @@ const ItemGallery = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1 className="w-full text-xl font-semibold">Just for you</h1>
-      <ul className="flex w-full flex-wrap gap-4">
-        {isLoading ? (
-          <h1>Loading Items...</h1>
-        ) : (
-          items.map((item) => (
-            <ItemCard
-              item={item}
-              key={item.id}
-              onAddToCart={(item, quantity) => addToCart(item, quantity)}
-            />
-          ))
-        )}
-      </ul>
-    </div>
+    <ul className="flex w-full flex-wrap gap-4">
+      {isLoading ? (
+        <h1>Loading Items...</h1>
+      ) : (
+        items.map((item) => (
+          <ItemCard
+            item={item}
+            key={item.id}
+            onAddToCart={(item, quantity) => addToCart(item, quantity)}
+          />
+        ))
+      )}
+    </ul>
   );
 };
 

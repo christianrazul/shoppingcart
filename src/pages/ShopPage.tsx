@@ -82,21 +82,9 @@ const ShopPage = () => {
   };
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex h-screen flex-col">
       <NavBar quantity={cartItems.length} />
       <div className="flex h-full flex-col gap-8 bg-gray-100 px-20 pt-4 md:px-24 lg:px-32 xl:px-48 2xl:px-96">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-xl font-semibold">Categories</h1>
-          {isLoading ? (
-            <h1>Loading Categories...</h1>
-          ) : (
-            <Categories
-              categories={categories}
-              onSelectCategory={(category) => selectCategory(category)}
-            />
-          )}
-        </div>
-
         <ItemGallery />
       </div>
     </div>

@@ -694,6 +694,10 @@ body {
   -webkit-line-clamp: 2;
 }
 
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
 }
@@ -778,6 +782,10 @@ body {
   height: 100%;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .w-10 {
   width: 2.5rem;
 }
@@ -808,6 +816,10 @@ body {
 
 .w-80 {
   width: 20rem;
+}
+
+.w-\[200px\] {
+  width: 200px;
 }
 
 .w-full {
@@ -899,6 +911,10 @@ body {
 
 .justify-between {
   justify-content: space-between;
+}
+
+.gap-3 {
+  gap: 0.75rem;
 }
 
 .gap-4 {
@@ -1058,6 +1074,10 @@ body {
      object-fit: contain;
 }
 
+.p-3 {
+  padding: 0.75rem;
+}
+
 .p-4 {
   padding: 1rem;
 }
@@ -1130,11 +1150,6 @@ body {
   line-height: 1.25rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
@@ -1196,6 +1211,10 @@ body {
 
 .text-secondary-foreground {
   color: hsl(var(--secondary-foreground));
+}
+
+.no-underline {
+  text-decoration-line: none;
 }
 
 .underline-offset-4 {

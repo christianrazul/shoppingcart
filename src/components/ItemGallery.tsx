@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ItemCard from './ItemCard';
+import ItemCard from "./ItemCard";
+import { CartItem } from "@/pages/ShopPage";
 
 export interface Item {
   id: number;
@@ -17,7 +18,7 @@ export interface Item {
 const ItemGallery = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   // fetch items from the API
   useEffect(() => {
     setIsLoading(true);
@@ -56,6 +57,7 @@ const ItemGallery = () => {
         return [...prevItems, { ...item, quantity }];
       }
     });
+  };
 
   return (
     <div className="flex flex-col gap-4">

@@ -1,5 +1,6 @@
 import Categories from "@/components/Categories";
 import ItemCard from "@/components/ItemCard";
+import ItemGallery from "@/components/ItemGallery";
 import NavBar from "@/components/NavBar";
 import { Card, CardHeader } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -23,30 +24,14 @@ export interface CartItem extends Item {
 }
 
 const ShopPage = () => {
-  const [items, setItems] = useState<Item[]>([]);
   const [categories, setCategories] = useState([""]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isItemsLoading, setIsItemsLoading] = useState(false);
 
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // fetch data
   useEffect(() => {
     setIsLoading(true);
-
-    const fetchData = async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-      if (!response.ok) {
-        throw new Error("Items unavailable.");
-      }
-      const data: Item[] = await response.json();
-      setItems(data);
-      setIsLoading(false);
-    };
-
-    fetchData().catch((error) =>
-      console.error("Fetching items failed:", error),
-    );
 
     const fetchCategories = async () => {
       const response = await fetch(
@@ -65,15 +50,15 @@ const ShopPage = () => {
     );
   }, []); // Empty dependency array means this effect runs once after the initial render
 
-  const selectCategory = (category: string) => {
-    setIsItemsLoading(true);
-    fetch(`https://fakestoreapi.com/products/category/${category}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setItems(json);
-        setIsItemsLoading(false);
-      });
-  };
+  // const selectCategory = (category: string) => {
+  //   setIsItemsLoading(true);
+  //   fetch(`https://fakestoreapi.com/products/category/${category}`)
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       setItems(json);
+  //       setIsItemsLoading(false);
+  //     });
+  // };
 
   const addToCart = (item: Item, quantity: number) => {
     setCartItems((prevItems) => {
@@ -112,22 +97,7 @@ const ShopPage = () => {
           )}
         </div>
 
-        <div className="flex flex-col gap-4">
-          <h1 className="w-full text-xl font-semibold">Just for you</h1>
-          <ul className="flex w-full flex-wrap gap-4">
-            {isLoading || isItemsLoading ? (
-              <h1>Loading Items...</h1>
-            ) : (
-              items.map((item) => (
-                <ItemCard
-                  item={item}
-                  key={item.id}
-                  onAddToCart={(item, quantity) => addToCart(item, quantity)}
-                />
-              ))
-            )}
-          </ul>
-        </div>
+        <ItemGallery />
       </div>
     </div>
   );

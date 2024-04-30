@@ -1,18 +1,41 @@
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 import { CartItem } from "@/pages/ShopPage";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 interface NavBarProps {
   quantity?: number;
   cartItems?: CartItem;
 }
+
+const categories: { title: string; href: string }[] = [
+  {
+    title: "Electronics",
+    href: "/shop/categories/electronics",
+  },
+  {
+    title: "Jewelry",
+    href: "/shop/categories/jewelry",
+  },
+  {
+    title: "Men's Clothing",
+    href: "/shop/categories/mensclothing",
+  },
+  {
+    title: "Women's Clothing",
+    href: "/shop/categories/womensclothing",
+  },
+];
 
 const NavBar = ({ quantity = 0 }: NavBarProps) => {
   return (
@@ -28,6 +51,20 @@ const NavBar = ({ quantity = 0 }: NavBarProps) => {
             <NavLink to="/" className={navigationMenuTriggerStyle()}>
               Home
             </NavLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="w-[200px] gap-3 p-4">
+                {categories.map((category) => (
+                  <ListItem
+                    key={category.title}
+                    title={category.title}
+                    href={category.href}
+                  ></ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavLink to="/shop" className={navigationMenuTriggerStyle()}>
@@ -46,5 +83,25 @@ const NavBar = ({ quantity = 0 }: NavBarProps) => {
     </div>
   );
 };
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavLink
+        to="/shop/:ref"
+        className={cn(
+          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+          className,
+        )}
+      >
+        <div className="text-sm font-medium leading-none">{title}</div>
+      </NavLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
 
 export default NavBar;

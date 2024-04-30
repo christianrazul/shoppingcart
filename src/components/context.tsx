@@ -12,7 +12,7 @@ interface CartProviderProps {
 }
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem>();
 
   const addToCart = (item: Item, quantity: number) => {
     setCartItems((prevItems) => {

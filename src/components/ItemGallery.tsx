@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import { CartItem } from "@/pages/ShopPage";
 
@@ -15,13 +15,37 @@ export interface Item {
   };
 }
 
-const ItemGallery = () => {
+interface ItemGalleryProps {
+  category: string | undefined;
+}
+
+const ItemGallery = ({ category }: ItemGalleryProps) => {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  // fetch items from the API
+
   useEffect(() => {
     setIsLoading(true);
+
+    if (category !== undefined) {
+      const fetchData = async () => {
+        const response = await fetch(
+          "https://fakestoreapi.com/products/category/" + category,
+        );
+        if (!response.ok) {
+          throw new Error("Items unavailable.");
+        }
+        const data: Item[] = await response.json();
+        setItems(data);
+        setIsLoading(false);
+      };
+
+      fetchData().catch((error) =>
+        console.error("Fetching items failed:", error),
+      );
+
+      return;
+    }
 
     const fetchData = async () => {
       const response = await fetch("https://fakestoreapi.com/products");
@@ -36,7 +60,7 @@ const ItemGallery = () => {
     fetchData().catch((error) =>
       console.error("Fetching items failed:", error),
     );
-  }, []);
+  }, [category]);
 
   const addToCart = (item: Item, quantity: number) => {
     setCartItems((prevItems) => {

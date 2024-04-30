@@ -18,11 +18,11 @@ interface NavBarProps {
   cartItems?: CartItem;
 }
 
-const categories: string[] = [
-  "Electronics",
-  "Jewelry",
-  "Men's Clothing",
-  "Women's Clothing",
+const categories: { name: string; slug: string }[] = [
+  { name: "Electronics", slug: "electronics" },
+  { name: "Jewelry", slug: "jewelery" },
+  { name: "Men's Clothing", slug: "men's clothing" },
+  { name: "Women's Clothing", slug: "women's clothing" },
 ];
 
 const NavBar = ({ quantity = 0 }: NavBarProps) => {
@@ -47,12 +47,14 @@ const NavBar = ({ quantity = 0 }: NavBarProps) => {
                 {categories.map((category, index) => (
                   <NavLink
                     key={index}
-                    to={`/shop/${category}`}
+                    to={`/shop/${category.slug}`}
                     className={cn(
                       "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
                     )}
                   >
-                    {category}
+                    <div className="text-sm font-medium leading-none">
+                      {category.name}
+                    </div>
                   </NavLink>
                 ))}
               </ul>

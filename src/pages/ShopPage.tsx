@@ -1,10 +1,7 @@
-import Categories from "@/components/Categories";
-import ItemCard from "@/components/ItemCard";
 import ItemGallery from "@/components/ItemGallery";
 import NavBar from "@/components/NavBar";
-import { Card, CardHeader } from "@/components/ui/card";
-import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useState } from "react";
+import { Outlet, useParams } from "react-router-dom";
 
 export interface Item {
   id: number;
@@ -24,31 +21,11 @@ export interface CartItem extends Item {
 }
 
 const ShopPage = () => {
-  const [categories, setCategories] = useState([""]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // fetch data
-  useEffect(() => {
-    setIsLoading(true);
+  const params = useParams();
 
-    const fetchCategories = async () => {
-      const response = await fetch(
-        "https://fakestoreapi.com/products/categories",
-      );
-      if (!response.ok) {
-        throw new Error("Categories unavailable.");
-      }
-      const categories = await response.json();
-      setCategories(categories);
-      setIsLoading(false);
-    };
-
-    fetchCategories().catch((error) =>
-      console.error("Fetching categories failed:", error),
-    );
-  }, []); // Empty dependency array means this effect runs once after the initial render
+  console.log(params);
 
   // const selectCategory = (category: string) => {
   //   setIsItemsLoading(true);
@@ -85,7 +62,7 @@ const ShopPage = () => {
     <div className="flex h-screen flex-col">
       <NavBar quantity={cartItems.length} />
       <div className="flex h-full flex-col gap-8 bg-gray-100 px-20 pt-4 md:px-24 lg:px-32 xl:px-48 2xl:px-96">
-        <ItemGallery />
+        <ItemGallery category={params.category} />
       </div>
     </div>
   );

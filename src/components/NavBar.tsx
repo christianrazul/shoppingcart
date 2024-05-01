@@ -7,16 +7,12 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { useCart } from "@/contexts/CartContext";
 import { cn } from "@/lib/utils";
 import { CartItem } from "@/pages/ShopPage";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-
-interface NavBarProps {
-  quantity?: number;
-  cartItems?: CartItem;
-}
 
 const categories: { name: string; slug: string }[] = [
   { name: "Electronics", slug: "electronics" },
@@ -25,7 +21,11 @@ const categories: { name: string; slug: string }[] = [
   { name: "Women's Clothing", slug: "women's clothing" },
 ];
 
-const NavBar = ({ quantity = 0 }: NavBarProps) => {
+const NavBar = () => {
+  const { cartItems } = useCart();
+
+  const cartItemsQuantity = cartItems.length;
+
   return (
     <div className="flex w-full justify-between border-b px-20 py-2 shadow-sm md:px-24 lg:px-32 xl:px-48 2xl:px-96">
       <div className="flex items-center gap-4">
@@ -69,7 +69,7 @@ const NavBar = ({ quantity = 0 }: NavBarProps) => {
             <NavLink to="/cart" className={navigationMenuTriggerStyle()}>
               Cart
               <ShoppingCart size={16} className="mx-2" />
-              {quantity}
+              {cartItemsQuantity}
             </NavLink>
           </NavigationMenuItem>
         </NavigationMenuList>

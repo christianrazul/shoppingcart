@@ -4,6 +4,7 @@ import { ReactNode, createContext, useContext, useState } from "react";
 interface CartContextProps {
   cartItems: CartItem[];
   addToCart: (item: CartItem) => void;
+  removeFromCart: (id: number) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -37,8 +38,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     });
   };
 
+  const removeFromCart = (id: number) => {
+    setCartItems((currentItems) =>
+      currentItems.filter((item) => item.id !== id),
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

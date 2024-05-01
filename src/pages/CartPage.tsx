@@ -10,9 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Trash } from "lucide-react";
 
 const CartPage = () => {
-  const { cartItems } = useCart();
+  const { cartItems, removeFromCart } = useCart();
 
   const totalPrice = cartItems.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -30,6 +32,7 @@ const CartPage = () => {
               <TableHead>Quantity</TableHead>
               <TableHead>Unit Price</TableHead>
               <TableHead>Total Price</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -42,15 +45,24 @@ const CartPage = () => {
                 <TableCell>{item.quantity}</TableCell>
                 <TableCell>${item.price}</TableCell>
                 <TableCell>${item.price * item.quantity}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    <Trash className="h-4 w-4" />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TableCell colSpan={3}>
-                Total ({cartItems.length} items)
+                Total ({cartItems.length} item/s)
               </TableCell>
-              <TableCell>${totalPrice.toFixed(2)}</TableCell>
+              <TableCell colSpan={2}>${totalPrice.toFixed(2)}</TableCell>
             </TableRow>
           </TableFooter>
         </Table>

@@ -66,7 +66,7 @@ const NavBar = ({ quantity = 0 }: NavBarProps) => {
             </NavLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavLink to="/shop/cart" className={navigationMenuTriggerStyle()}>
+            <NavLink to="/cart" className={navigationMenuTriggerStyle()}>
               Cart
               <ShoppingCart size={16} className="mx-2" />
               {quantity}

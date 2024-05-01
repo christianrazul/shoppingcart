@@ -27,6 +27,7 @@ const ItemGallery = ({ category }: ItemGalleryProps) => {
   useEffect(() => {
     setIsLoading(true);
 
+    // if there is a category selected
     if (category !== undefined) {
       const fetchData = async () => {
         const response = await fetch(

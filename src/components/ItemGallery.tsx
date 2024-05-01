@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
-import { CartItem } from "@/pages/ShopPage";
 import { useCart } from "@/contexts/CartContext";
 
 export interface Item {
@@ -23,7 +22,6 @@ interface ItemGalleryProps {
 const ItemGallery = ({ category }: ItemGalleryProps) => {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const { addToCart } = useCart();
 
   useEffect(() => {

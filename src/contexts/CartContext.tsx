@@ -33,7 +33,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
             : cartItem,
         );
       }
-      return [...prevItems, { ...item, quantity: 1 }];
+      return [...prevItems, { ...item, quantity: item.quantity }];
     });
   };
 

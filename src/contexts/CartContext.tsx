@@ -5,6 +5,8 @@ interface CartContextProps {
   cartItems: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
+  incrementQuantity: (id: number) => void;
+  decrementQuantity: (id: number) => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -44,8 +46,34 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     );
   };
 
+  const incrementQuantity = (id: number) => {
+    setCartItems((current) =>
+      current.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item,
+      ),
+    );
+  };
+
+  const decrementQuantity = (id: number) => {
+    setCartItems((current) =>
+      current.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(0, item.quantity - 1) }
+          : item,
+      ),
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        incrementQuantity,
+        decrementQuantity,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

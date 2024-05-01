@@ -14,7 +14,8 @@ import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
 
 const CartPage = () => {
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, incrementQuantity, decrementQuantity } =
+    useCart();
 
   const totalPrice = cartItems.reduce((total, item) => {
     return total + item.price * item.quantity;
@@ -42,7 +43,23 @@ const CartPage = () => {
                   <img src={item.image} className="h-10 w-10 object-contain" />
                   {item.title}
                 </TableCell>
-                <TableCell>{item.quantity}</TableCell>
+                <TableCell>
+                  <button
+                    className="h-6 w-6 border"
+                    onClick={() => decrementQuantity(item.id)}
+                  >
+                    -
+                  </button>
+                  {"  "}
+                  {item.quantity}
+                  {"  "}
+                  <button
+                    className="h-6 w-6 border"
+                    onClick={() => incrementQuantity(item.id)}
+                  >
+                    +
+                  </button>
+                </TableCell>
                 <TableCell>${item.price}</TableCell>
                 <TableCell>${item.price * item.quantity}</TableCell>
                 <TableCell>

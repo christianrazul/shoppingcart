@@ -28,10 +28,12 @@ const NavBar = () => {
 
   return (
     <div className="flex w-full justify-between border-b px-20 py-2 shadow-sm md:px-24 lg:px-32 xl:px-48 2xl:px-96">
-      <div className="flex items-center gap-4">
-        <ShoppingBag />
-        <p className="font-semibold">Market</p>
-      </div>
+      <NavLink to="/" className="flex items-center">
+        <div className="flex items-center gap-4">
+          <ShoppingBag />
+          <p className="font-semibold">Market</p>
+        </div>
+      </NavLink>
 
       <NavigationMenu>
         <NavigationMenuList>

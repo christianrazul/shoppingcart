@@ -11,11 +11,13 @@ const HomePage = () => {
       <NavBar />
       <div className="flex h-full flex-col items-center justify-center gap-12 md:px-24 lg:px-32 xl:px-48 2xl:px-96">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="text-center text-3xl font-semibold">
-            Welcome to the Future of Shopping Exceptional Quality, Unbeatable
-            Prices
+          <h1 className="text-center text-3xl font-bold">
+            Welcome to Market Basket!
           </h1>
-          <p>Check out some of our best sellers!</p>
+          <h2 className="text-lg font-medium">
+            Home of Exceptional Quality and Unbeatable Prices
+          </h2>
+          <p>Check out some of our best sellers:</p>
         </div>
         <HeroCarousel />
         <div className="flex gap-4">

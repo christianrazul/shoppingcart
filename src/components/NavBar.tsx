@@ -31,7 +31,7 @@ const NavBar = () => {
       <NavLink to="/" className="flex items-center">
         <div className="flex items-center gap-4">
           <ShoppingBag />
-          <p className="font-semibold">Market</p>
+          <p className="font-semibold">Market Basket</p>
         </div>
       </NavLink>
 

@@ -1,6 +1,6 @@
 # ShoppingCart
 
-Welcome to ShoppingCart, a streamlined and intuitive shopping cart application designed to enhance your online shopping experience. This React-based application offers a user-friendly interface and robust features to help users effortlessly browse products, add items to their cart, and manage their purchases.
+Welcome to ShoppingCart, a streamlined and intuitive shopping cart application designed to enhance your online shopping experience. This React-based application offers a user-friendly interface and robust features to help users effortlessly browse products, add items to their cart, and manage their purchases. I built this for the goal of mastering ReactJS features such as custom hooks, Context API, and react-router-dom, while using Tailwind as well as ShadCN.
 
 ![image](https://github.com/christianrazul/shoppingcart/assets/101724618/3787ba48-fc56-45b9-a988-ff93c6df2da5)
 

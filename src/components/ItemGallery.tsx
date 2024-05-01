@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import { CartItem } from "@/pages/ShopPage";
+import { useCart } from "@/contexts/CartContext";
 
 export interface Item {
   id: number;
@@ -23,6 +24,7 @@ const ItemGallery = ({ category }: ItemGalleryProps) => {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     setIsLoading(true);
@@ -63,27 +65,6 @@ const ItemGallery = ({ category }: ItemGalleryProps) => {
     );
   }, [category]);
 
-  const addToCart = (item: Item, quantity: number) => {
-    setCartItems((prevItems) => {
-      // Check if the item is already in the cart
-      const existingItem = prevItems.find(
-        (cartItem) => cartItem.id === item.id,
-      );
-
-      if (existingItem) {
-        // If item exists, map over the array and update the quantity
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + quantity }
-            : cartItem,
-        );
-      } else {
-        // If item doesn't exist, add it with the quantity
-        return [...prevItems, { ...item, quantity }];
-      }
-    });
-  };
-
   return (
     <ul className="flex w-full flex-wrap gap-4">
       {isLoading ? (
@@ -93,7 +74,7 @@ const ItemGallery = ({ category }: ItemGalleryProps) => {
           <ItemCard
             item={item}
             key={item.id}
-            onAddToCart={(item, quantity) => addToCart(item, quantity)}
+            onAddToCart={(item) => addToCart(item)}
           />
         ))
       )}

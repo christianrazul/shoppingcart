@@ -1,4 +1,4 @@
-import { Item } from "@/pages/ShopPage";
+import { CartItem, Item } from "@/pages/ShopPage";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -15,7 +15,7 @@ import { useState } from "react";
 
 interface ItemCardProps {
   item: Item;
-  onAddToCart: (item: Item, quantity: number) => void;
+  onAddToCart: (item: CartItem) => void;
 }
 
 const ItemCard = ({ item, onAddToCart }: ItemCardProps) => {
@@ -26,7 +26,7 @@ const ItemCard = ({ item, onAddToCart }: ItemCardProps) => {
   };
 
   const handleClick = () => {
-    onAddToCart(item, quantity);
+    onAddToCart({ ...item, quantity: quantity });
   };
 
   return (

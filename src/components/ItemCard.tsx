@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ItemCardProps {
   item: Item;
@@ -20,6 +21,9 @@ interface ItemCardProps {
 
 const ItemCard = ({ item, onAddToCart }: ItemCardProps) => {
   const [quantity, setQuantity] = useState(1);
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const { toast } = useToast();
 
   const handleChange = (event: any) => {
     setQuantity(Number(event.target.value));
@@ -27,12 +31,18 @@ const ItemCard = ({ item, onAddToCart }: ItemCardProps) => {
 
   const handleClick = () => {
     onAddToCart({ ...item, quantity: quantity });
+    toast({
+      title: "Success!",
+      description: `${quantity}x ${item.title} added to your cart.`,
+      variant: "default",
+    });
+    setOpenDialog(!openDialog);
   };
 
   return (
-    <Dialog key={item.id}>
+    <Dialog key={item.id} open={openDialog} onOpenChange={setOpenDialog}>
       <DialogTrigger asChild>
-        <Card className="flex h-72 w-52 flex-col">
+        <Card className="flex h-72 w-52 cursor-pointer flex-col">
           <CardHeader>
             <img
               src={item.image}

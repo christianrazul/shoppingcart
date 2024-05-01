@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import { useCart } from "@/contexts/CartContext";
+import { Skeleton } from "./ui/skeleton";
 
 export interface Item {
   id: number;
@@ -66,7 +67,11 @@ const ItemGallery = ({ category }: ItemGalleryProps) => {
   return (
     <ul className="flex w-full flex-wrap gap-4">
       {isLoading ? (
-        <h1>Loading Items...</h1>
+        <div className="flex gap-4">
+          <Skeleton className="h-72 w-52 rounded-xl bg-white" />
+          <Skeleton className="h-72 w-52 rounded-xl bg-white" />
+          <Skeleton className="h-72 w-52 rounded-xl bg-white" />
+        </div>
       ) : (
         items.map((item) => (
           <ItemCard

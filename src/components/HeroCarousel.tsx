@@ -6,12 +6,15 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const HeroCarousel = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
+    setIsLoading(true);
+
     const fetchData = async () => {
       const response = await fetch("https://fakestoreapi.com/products");
       if (!response.ok) {
@@ -27,7 +30,13 @@ const HeroCarousel = () => {
     );
   }, []);
 
-  return (
+  return isLoading ? (
+    <div className="flex w-full items-center justify-center gap-8">
+      <Skeleton className="h-[300px] w-[250px] rounded-xl" />
+      <Skeleton className="h-[300px] w-[250px] rounded-xl" />
+      <Skeleton className="h-[300px] w-[250px] rounded-xl" />
+    </div>
+  ) : (
     <Carousel
       className="w-full"
       plugins={[
